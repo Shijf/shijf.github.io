@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>盼望着，盼望着 let&#39;s encrypt 泛域名野卡证书，终于终于上线了 - Sharef</title>
+  
+    <meta name="keywords" content="工具">
+  
+  
+    <meta name="description" content="说明首先说下，什么叫泛域名，假如我有一个域名 sharef.top ,那么主域名就是 www.sharef.top , 假如还想做一个网站，域名为 f.sharef.top ,如果要想 访问这两个网站，那么我们得同时将我们的这两个域名A记录解析到服务器的IP，同样，假如我们需要为这两个网站 申请 ssl 证书，那...">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Sharef">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/atelier-seaside-dark.css">
+
+    
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+    <!-- <p class="title" style="color: black;">Sharef</p> -->
+    <p class="title">
+      <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/640x640" alt="logo头像" style="width: 82px;
+      height: 82px;
+      max-width: 100%;
+      border-radius: 50%;">
+    </p>
+    
+    
+    <p class="subtitle" style="font-size: 1.2rem; font-family: ' STXingkai', 'KaiTi' , 'Microsoft YaHei' , 'SimSun' , sans-serif;margin: 0 auto; letter-spacing: 3px; color: #e67e22; text-overflow: ellipsis; overflow: hidden;
+    white-space: nowrap; background-image: -webkit-linear-gradient(left, #cddc39, #e67e22 25%, #cddc39 50%, #e67e22
+    75%, #cddc39) !important; -webkit-text-fill-color: transparent!important; -webkit-background-clip: text!important;
+    background-size: 200% 100%!important; animation: masked-animation 2s infinite linear !important;">
+      爱分享 爱生活 爱编程</p>
+    
+  </div>
+  <div class='b'>
+    
+    <div class="m_search">
+      <form name="searchform" class="form u-search-form">
+        <input type="text" class="input u-search-input" placeholder="" />
+        <i class="icon fas fa-search fa-fw"></i>
+      </form>
+    </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            Sharef
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/">
+      盼望着，盼望着 let's encrypt 泛域名野卡证书，终于终于上线了
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://blog.sharef.top" rel="nofollow">
+    <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/100x100">
+    <p>shijf</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2018年7月30日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><p>首先说下，什么叫泛域名，假如我有一个域名 sharef.top ,那么主域名就是 <a href="https://www.sharef.top" target="_blank" rel="noopener">www.sharef.top</a> , 假如还想做一个网站，域名为<a href="https://f.sharef.top" target="_blank" rel="noopener"> f.sharef.top</a> ,如果要想 访问这两个网站，那么我们得同时将我们的这两个域名A记录解析到服务器的IP，同样，假如我们需要为这两个网站 申请 ssl 证书，那么我们要申请两个，来配置。但是泛域名解析的话，我们只需要将 * .sharef.top 这一条 A 记录解析到我们的服务器就好了，那么不管我们，想要访问a.sharef.xin,还是 b.sharef.top 都会解析到 我们的服务器。同样 泛域名解析 也是一样，我们只需申请一次的  .sharef.top 证书，我们这里的 二级域名都是可以 用这一个 ssl 证书就可以了。</p>
+<a id="more"></a>
+
+<h1 id="官方参考"><a href="#官方参考" class="headerlink" title="官方参考"></a>官方参考</h1><p>GitHub：<a href="https://github.com/Neilpang/acme.sh" target="_blank" rel="noopener">仓库在这里</a><br>官方中文说明：<a href="https://github.com/Neilpang/acme.sh/wiki/%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener">中文文档</a><br>DNSAPI：你可能会是不同的DNS服务商，在 <a href="https://github.com/Neilpang/acme.sh/blob/master/dnsapi/README.md" target="_blank" rel="noopener">这里</a>会查到</p>
+<h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>首先你要有一台公网服务器：这里我以 <strong><em>阿里云</em></strong>的  centos 7 为例演示：<br>需要安装一些必要的软件 ：</p>
+<pre><code>yum update &amp;&amp; yum install curl -y &amp;&amp; yum install cron -y &amp;&amp; yum install socat -y</code></pre><p><strong>以下操作也可以参考官方文档哈</strong></p>
+<h1 id="使用阿里云域名-api-申请Let’s-Encrypt泛域名免费ssl证书"><a href="#使用阿里云域名-api-申请Let’s-Encrypt泛域名免费ssl证书" class="headerlink" title="使用阿里云域名 api 申请Let’s Encrypt泛域名免费ssl证书"></a>使用阿里云域名 api 申请Let’s Encrypt泛域名免费ssl证书</h1><h2 id="下载-acme-sh-并且执行"><a href="#下载-acme-sh-并且执行" class="headerlink" title="下载 acme.sh 并且执行"></a>下载 acme.sh 并且执行</h2><pre><code>curl https://get.acme.sh | sh</code></pre><h2 id="获取阿里云的Access-Key-ID和Access-Key-Secret到环境变量中"><a href="#获取阿里云的Access-Key-ID和Access-Key-Secret到环境变量中" class="headerlink" title="获取阿里云的Access Key ID和Access Key Secret到环境变量中"></a>获取阿里云的Access Key ID和Access Key Secret到环境变量中</h2><p>阿里云的Access Key ID和Access Key Secret可以在下面<a href="https://account.aliyun.com/login/login.htm?oauth_callback=https%3A%2F%2Fak-console.aliyun.com%2F%3Fspm%3D5176.2020520001.0.0.0EJtVx#/accesskey" target="_blank" rel="noopener">这个</a>页面中登录获取<br><img src="https://cdn.learnku.com/uploads/images/201807/30/18751/Fv5i4dMUpl.png?imageView2/2/w/1240/h/0" alt="file"></p>
+<p>执行以下命令，将密钥添加到环境变量中</p>
+<pre><code>export Ali_Key=&quot;你的Access Key ID&quot;
+export Ali_Secret=&quot;你的 Access Key Secret&quot;</code></pre><p><img src="https://cdn.learnku.com/uploads/images/201807/30/18751/27CcV0W6Si.png?imageView2/2/w/1240/h/0" alt="file"></p>
+<h2 id="申请证书"><a href="#申请证书" class="headerlink" title="申请证书"></a>申请证书</h2><p>执行以下命令（将domain.com换成自己的域名）：</p>
+<pre><code>~/.acme.sh/acme.sh --issue --dns dns_ali -d domain.com -d *.domain.com</code></pre><p><strong>注意：第一个 -d 后不可直接写通配符域名*.domain.com，一定要写个单域名，第二个 -d 后面可以写泛域名。<br>否则可能会出现签发的证书无法被信任的情况。</strong></p>
+<p><img src="https://cdn.learnku.com/uploads/images/201807/30/18751/XcZOssYu4p.png?imageView2/2/w/1240/h/0" alt="file"></p>
+<h3 id="之后把这些证书下载下来就好了，所有文件在-acme-sh-你的域名-目录下面就可以了"><a href="#之后把这些证书下载下来就好了，所有文件在-acme-sh-你的域名-目录下面就可以了" class="headerlink" title="之后把这些证书下载下来就好了，所有文件在.acme.sh/你的域名 目录下面就可以了"></a>之后把这些证书下载下来就好了，所有文件在.acme.sh/你的域名 目录下面就可以了</h3><p>配置 ssl 的问题就 自行 搜索教程吧，证书都有啦，还怕搞不成？</p>
+<h1 id="重重之中，记得放行服务器-443端口"><a href="#重重之中，记得放行服务器-443端口" class="headerlink" title="重重之中，记得放行服务器 443端口"></a>重重之中，记得放行服务器 443端口</h1><h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li>作者：Noisky  <a href="https://ffis.me/experience/1261.html" target="_blank" rel="noopener">let’s encrypt泛域名野卡证书配置笔记</a></li>
+<li>作者：bboysoul <a href="https://yq.aliyun.com/articles/541843" target="_blank" rel="noopener">使用阿里云域名api申请Let’s Encrypt泛域名免费ssl证书</a></li>
+</ol>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://blog.sharef.top/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/>https://blog.sharef.top/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/alipay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/wechatpay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-15T21:49:41+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年5月15日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%B7%A5%E5%85%B7/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>工具</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.sharef.top/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/&title=盼望着，盼望着 let's encrypt 泛域名野卡证书，终于终于上线了 - Sharef&summary=说明首先说下，什么叫泛域名，假如我有一个域名 sharef.top ,那么主域名就是 www.sharef.top , 假如还想做一个网站，域名为 f.sharef.top ,如果要想 访问这两个网站，那么我们得同时将我们的这两个域名A记录解析到服务器的IP，同样，假如我们需要为这两个网站 申请 ssl 证书，那么我们要申请两个，来配置。但是泛域名解析的话，我们只需要将 * .sharef.top 这一条 A 记录解析到我们的服务器就好了，那么不管我们，想要访问a.sharef.xin,还是 b.sharef.top 都会解析到 我们的服务器。同样 泛域名解析 也是一样，我们只需申请一次的  .sharef.top 证书，我们这里的 二级域名都是可以 用这一个 ssl 证书就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://blog.sharef.top/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/&title=盼望着，盼望着 let's encrypt 泛域名野卡证书，终于终于上线了 - Sharef&summary=说明首先说下，什么叫泛域名，假如我有一个域名 sharef.top ,那么主域名就是 www.sharef.top , 假如还想做一个网站，域名为 f.sharef.top ,如果要想 访问这两个网站，那么我们得同时将我们的这两个域名A记录解析到服务器的IP，同样，假如我们需要为这两个网站 申请 ssl 证书，那么我们要申请两个，来配置。但是泛域名解析的话，我们只需要将 * .sharef.top 这一条 A 记录解析到我们的服务器就好了，那么不管我们，想要访问a.sharef.xin,还是 b.sharef.top 都会解析到 我们的服务器。同样 泛域名解析 也是一样，我们只需申请一次的  .sharef.top 证书，我们这里的 二级域名都是可以 用这一个 ssl 证书就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://blog.sharef.top/2018/07/30/a545f2b0-967b-11ea-a177-d1521733a308/&title=盼望着，盼望着 let's encrypt 泛域名野卡证书，终于终于上线了 - Sharef&summary=说明首先说下，什么叫泛域名，假如我有一个域名 sharef.top ,那么主域名就是 www.sharef.top , 假如还想做一个网站，域名为 f.sharef.top ,如果要想 访问这两个网站，那么我们得同时将我们的这两个域名A记录解析到服务器的IP，同样，假如我们需要为这两个网站 申请 ssl 证书，那么我们要申请两个，来配置。但是泛域名解析的话，我们只需要将 * .sharef.top 这一条 A 记录解析到我们的服务器就好了，那么不管我们，想要访问a.sharef.xin,还是 b.sharef.top 都会解析到 我们的服务器。同样 泛域名解析 也是一样，我们只需申请一次的  .sharef.top 证书，我们这里的 二级域名都是可以 用这一个 ssl 证书就可以了。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2018/09/04/fc6247d0-9679-11ea-8eb3-976c7845fdb4/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>利用自己的云服务器搭建内网穿透，免费不限量，主要是速度很给力</p>
+                <p class='content'>前言最近在开发一款基于微信的产品，这里不得不说，超哥 的 wechatSdk 确实好用，节省了不少时间，但是在本地开发总是会用到内网穿透来实现和微信服务器联调的环节。以前也用户过诸如 natap...</p>
+              </a>
+            
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '盼望着，盼望着 let's encrypt 泛域名野卡证书，终于终于上线了',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#下载-acme-sh-并且执行"><span class="toc-text">下载 acme.sh 并且执行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取阿里云的Access-Key-ID和Access-Key-Secret到环境变量中"><span class="toc-text">获取阿里云的Access Key ID和Access Key Secret到环境变量中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#申请证书"><span class="toc-text">申请证书</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#之后把这些证书下载下来就好了，所有文件在-acme-sh-你的域名-目录下面就可以了"><span class="toc-text">之后把这些证书下载下来就好了，所有文件在.acme.sh&#x2F;你的域名 目录下面就可以了</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.1'
+      loop='all'
+      order='list'
+      fixed='true'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='2438292020'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:shijfprivate@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/Shijf"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=364936028"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://blog.sharef.top">Copyright © 2017-2020 Shijf</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "hnqUwWuMC7HSYav37IQClxVp-gzGzoHsz",
+    appKey: "C21Y1LPJiLtmtXhliUfAtbtE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/lib/index.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
