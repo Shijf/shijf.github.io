@@ -76,19 +76,19 @@ style:
       # weight: normal
       # style: normal
   # color:
-  #   site: '#21232F' # Website background color
-  #   site_inner: '#fff' # Text color inside the website background
-  #   site_footer: '#666' # Footer text color inside the website background
-  #   card: '#444' # Card background color
-  #   text: '#fff' # The color of the text on the card.
-  #   theme: '#ff9800' # Main color
-  #   link: '#1BCDFC' # Link color
-  #   hover: '#ff5722' # Link highlight color
-  #   inner: '#333' # Text color inside the button
-  #   block: '#555' # Block color
-  #   inlinecode: '#555' # Inline code color
-  #   codeblock: '#555' # Codeblock color
-  #   p: '#ccc' # Paragraph color
+    site: '#21232F' # Website background color
+    site_inner: '#fff' # Text color inside the website background
+    site_footer: '#666' # Footer text color inside the website background
+    card: '#444' # Card background color
+    text: '#fff' # The color of the text on the card.
+    theme: '#ff9800' # Main color
+    link: '#1BCDFC' # Link color
+    hover: '#ff5722' # Link highlight color
+    inner: '#333' # Text color inside the button
+    block: '#555' # Block color
+    inlinecode: '#555' # Inline code color
+    codeblock: '#555' # Codeblock color
+    p: '#ccc' # Paragraph color
 
 
 
@@ -400,8 +400,8 @@ plugins:
   ######## Plugins to optimize the experience:
   # highlight.js
   highlightjs:
-    js: https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/lib/index.min.js
-    css: https://cdn.jsdelivr.net/npm/highlight.js@10.0.3/styles/atelier-seaside-dark.css
+    js: https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js
+    css: https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/atom-one-dark.css
     # more: https://www.jsdelivr.com/package/npm/highlight.js?path=styles
 
   # https://scrollrevealjs.org/api/reveal.html

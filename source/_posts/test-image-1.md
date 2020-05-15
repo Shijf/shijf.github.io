@@ -4,6 +4,7 @@ title: test-image
 tags: []
 categories: []
 date: 2020-05-15 21:35:14
+thumbnail: true
 ---
 
 

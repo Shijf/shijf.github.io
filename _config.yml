@@ -115,3 +115,11 @@ admin:
     expire: 60*1
     cdn_image_url: 'https://cdn.jsdelivr.net/gh/shijf/shijf.github.io'
     # cors: http://localhost:3000
+
+
+offline:
+  maximumFileSizeToCacheInBytes: 5242880
+  staticFileGlobs:
+    - public/**/*.{js,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}
+  stripPrefix: public
+  verbose: true
