@@ -40,7 +40,7 @@ after_script:
 
 branches:
   only:
-    - master #需要监听部署的分支
+    - hexo #需要监听部署的分支
 env:
   global:
    - GH_REF: github.com/Shijf/shijf.github.io.git #更改为自己git地址
