@@ -25,4 +25,4 @@ branches:
 env:
  global:
    - GH_REF: github.com/Shijf/shijf.github.io.git
-   - CODING_REF: git.coding.net/shijf/shijf.coding.me.git
+   - CODING_REF: e.coding.net/shijf/shijf.coding.me.git

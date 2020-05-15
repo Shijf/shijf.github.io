@@ -24,6 +24,9 @@ function default(){
   echo "blog.sharef.top" >> CNAME
 
 cat <<EOF >> README.md
+
+
+
 部署状态 | 集成结果 | 参考值
 ---|---|---
 完成时间 | $time | yyyy-mm-dd hh:mm:ss
@@ -33,6 +36,7 @@ cat <<EOF >> README.md
 仓库地址 | $TRAVIS_REPO_SLUG | owner_name/repo_name
 提交分支 | $TRAVIS_COMMIT | hash 16位
 提交信息 | $TRAVIS_COMMIT_MESSAGE |
+部署状态 | [![Build Status](https://travis-ci.org/Shijf/shijf.github.io.svg?branch=hexo)](https://travis-ci.org/Shijf/shijf.github.io)
 Job ID   | $TRAVIS_JOB_ID |
 Job NUM  | $TRAVIS_JOB_NUMBER |
 EOF
