@@ -5,23 +5,17 @@ node_js: stable #安装稳定版Node
 # S: Build Lifecycle
 install:
   - npm install
-  - hexo clean && hexo g
+
+before_script:
+  - export TZ='Asia/Shanghai' #设置时区
+  - npm install -g gulp  #全局安装Gulp
+  - chmod +x _travis.sh  #授权脚本执行权限
 
 script:
-  - pwd
-after_script:
-  - cd ./public
-  - echo "blog.sharef.top" >> CNAME
-  - git init
-  - git config user.name "shijf"
-  - git config user.email "shijf_private@163.com"
-  - git add .
-  - git commit -m "Update docs"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:master
-  - rm "CNAME"
-  - echo " <p>Hosted by <a href= \"https://pages.coding.me \" style=\"font-weight: bold \">Coding Pages</a></p> " >> index.html
-  - git push --force --quiet "https://shijf:${CODING_TOKEN}@${CODING_REF}" master:master
+  - hexo clean && hexo g #清除缓存并生成静态文件
 
+after_script:
+  - ./_travis.sh #执行部署脚本
 
 # E: Build LifeCycle
 
