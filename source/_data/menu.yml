@@ -8,9 +8,9 @@
 # - name: 标签
 #   icon: fas fa-tag
 #   url: /tags
-- name: 友情链接
-  icon: fab fa-link
-  url: /friends
+# - name: 友情链接
+#   icon: fab fa-link
+#   url: /friends
 - name: 开源项目
   icon: fas fa-book
   rows:
@@ -22,4 +22,7 @@
     - name: hr
     - name: fp-auth(doing)
       url: https://github.com/Shijf/fp-auth
+- name: 留言板
+  icon: fas fa-edit
+  url: /blog/message
    

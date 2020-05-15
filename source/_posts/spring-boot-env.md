@@ -3,6 +3,7 @@ uuid: 30e42f40-9667-11ea-a46f-b77762f93269
 title: 如何利用 VSCode 打造一个 java 的开发环境 
 date: 2020-05-15 12:47:33
 tags: ['liunx', 'java', 'vscode']
+cover: true
 ---
 
 # 安装 Java 环境
@@ -23,6 +24,7 @@ tags: ['liunx', 'java', 'vscode']
 显然，这三者的关系是：一层层的嵌套关系。JDK>JRE>JVM
 
 <!-- more -->
+
 ## Linux 安装 Java 环境
 此处需要结合上一篇 [《在win 10 环境下 如何打造一套适合的开发环境》](https://blog.sharef.top/2020/02/21/66b0ce80-95f9-11ea-926e-6f56d5e2c488/)，将ubuntu 设置为 主要的开发、运行环境。
 

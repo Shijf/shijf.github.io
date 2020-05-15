@@ -106,3 +106,12 @@ rss: /atom.xml
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: ''
+
+
+admin:
+    name: hexo
+    password: hey
+    secret: hey hexo
+    expire: 60*1
+    cdn_image_url: 'https://cdn.jsdelivr.net/gh/shijf/shijf.github.io'
+    # cors: http://localhost:3000

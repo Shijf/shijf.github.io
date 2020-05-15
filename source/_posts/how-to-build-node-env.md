@@ -5,6 +5,7 @@ categories: [['linux'], ['前端'], ['环境搭建']]
 tags: ['liunx', 'node']
 title: 在 win 10 环境下 如何打造一套适合的开发环境之前端环境
 date: 2020-02-21
+cover: true
 ---
 ## 前提
 - win10 专业版 
