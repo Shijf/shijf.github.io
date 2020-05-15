@@ -27,7 +27,7 @@ after_script:
 
 branches:
   only:
-    - master
+    - hexo
 env:
  global:
    - GH_REF: github.com/Shijf/shijf.github.io.git
