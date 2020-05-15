@@ -484,24 +484,24 @@ plugins:
 comments:
   title: <i class='fas fa-comments'></i> 评论
   subtitle:
-  service: gitalk # valine, minivaline, disqus, gitalk, livere
+  service: valine # valine, minivaline, disqus, gitalk, livere
   # Valine
   # https://valine.js.org/
-  # valine:
-  #   appId: ROADmjuOaYnB7jduEc4pmtGY-gzGzoHsz # your appId
-  #   appKey: fpApxYJJLhDFjLXmHWC5TjKi # your appKey
-  #   js: https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js
-  #   path: # All pages use the same path (share the same comments data)
-  #   meta: nick,mail,link # valine comment header info
-  #   requiredFields: ['nick','mail']
-  #   enableQQ: true # Unstable avatar link
-  #   placeholder: 快来评论吧~ # valine comment input placeholder(like: Please leave your footprints )
-  #   avatar: robohash # gravatar style https://valine.js.org/avatar
-  #   pageSize: 10 # comment list page size
-  #   lang: zh-cn
-  #   highlight: true
-  #   visitor: true
-  #   mathJax: false
+  valine:
+    appId: hnqUwWuMC7HSYav37IQClxVp-gzGzoHsz # your appId
+    appKey: C21Y1LPJiLtmtXhliUfAtbtE # your appKey
+    js: https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js
+    path: # All pages use the same path (share the same comments data)
+    meta: nick,mail,link # valine comment header info
+    requiredFields: ['nick','mail']
+    enableQQ: true # Unstable avatar link
+    placeholder: 快来评论吧~ # valine comment input placeholder(like: Please leave your footprints )
+    avatar: mp # gravatar style https://valine.js.org/avatar
+    pageSize: 10 # comment list page size
+    lang: zh-cn
+    highlight: true
+    visitor: true
+    mathJax: false
   # MiniValine
   # https://github.com/MiniValine/MiniValine
   minivaline:
@@ -533,11 +533,11 @@ comments:
   # Gitalk
   # https://gitalk.github.io/
   gitalk:
-    clientID: a46bb7e59df8cd67f468
-    clientSecret: 6d1da67d1d801574ebec31d3118ff8cb9406896a
-    repo: shijf.github.io
-    owner: shijf
-    language:  zh-CN
+    clientID: 
+    clientSecret: 
+    repo: 
+    owner: 
+    language:  
   # Vssue
   # https://vssue.js.org/zh/
   vssue:
