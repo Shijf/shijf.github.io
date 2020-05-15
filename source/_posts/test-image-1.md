@@ -6,7 +6,6 @@ categories: []
 date: 2020-05-15 21:35:14
 ---
 
-![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1589549917826.png)
 
 这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片这是一张图片
 ![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1589549935725.png)

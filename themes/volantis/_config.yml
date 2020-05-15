@@ -337,8 +337,8 @@ widget:
     height: 64px  # Automatic height if not set
     fancybox: true
     images:
-      - https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png
-      - https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/qrcode/wiki_volantis.png
+      - https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/alipay.png
+      - https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/wechatpay.png
   # ---------------------------------------
   # references widget
   references:
