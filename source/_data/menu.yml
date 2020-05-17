@@ -1,7 +1,8 @@
 - name: 博客
   icon: fas fa-rss
   url: /
-
+- name: 日常收集
+  url: /collect
 # - name: 分类
 #   icon: fas fa-category
 #   url: /categories
