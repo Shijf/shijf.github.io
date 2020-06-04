@@ -72,11 +72,12 @@ $ sudo ln -s /usr/local/soft/nodejs/bin/npm  /usr/local/bin/npm
 $ sudo ln -s /usr/local/soft/nodejs/bin/npx  /usr/local/bin/npx
 // 测试安装成功与否,如果打印出版本信息，则安装成功，如果没有，则应细细检查步骤，重复一下
 
-$ npm -v // v12.16.1
+$ npm -v //  6.13.4
 
-$ node -v // 6.13.4
+$ node -v // v12.16.1
 
 $ npx -v // 6.13.4
+
 // 如果在生产服务器上，可以用ftp上传
 // 注意，如果在生产服务器上安装时，最好是建立一个node的用户，方便管理，由于是本地开发我们就可以随自己喜好了
 

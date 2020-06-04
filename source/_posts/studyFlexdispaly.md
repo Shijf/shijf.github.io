@@ -1,5 +1,5 @@
 ---
-uuid: b0ff7080-a626-11ea-9576-3fae9b2382b0
+uuid: c130c640-a638-11ea-bfe8-f743083da075
 title: 彻底搞定flex (持续更新)
 tags: []
 categories:
@@ -16,7 +16,6 @@ date: 2020-06-04 13:38:25
 假设我们要实现一个这样的布局，三个色块水平排版;
 
 ## 一般写法
-
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -68,7 +67,7 @@ ul li:last-child{
 }
 ```
 
-从代码看出，我们用了浮动。而且浮动布局并不会撑起父元素的高度，我们还需要清楚浮动(overflow: hidden;)
+从代码看出，我们用了浮动。而且浮动布局并不会撑起父元素的高度，我们还需要清除浮动(overflow: hidden;)
 
 ### 用flex布局实现
 
@@ -181,3 +180,41 @@ ul{
 - `column-reverse` (主轴反向垂直从下到上)
 
 ![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591249562980.png)
+
+> 注意点：只要主轴发生了变化，侧轴也会变化，永远都是十字交叉的。
+
+
+## 主轴的对齐方式
+
+- 相关属性： justify-content
+
+相关取值效果展示：
+注意： 此时的 `主轴方向` 为默认的 row 取值
+1. flex-start(默认) : 让伸缩项与主轴**起点**对齐
+```css
+ul {
+    margin: 50px;
+    border: 1px solid #000000;
+    width: 300px;
+    color: #ffffff;
+    display: flex;
+    flex-direction: row; 
+    justify-content: flex-start; // 修改不同的取值
+}
+```
+![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256835268.png)
+2. flex-end ：让伸缩项与主轴**终点**对齐
+![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256801998.png)
+3.  center: 伸缩项位于主轴的中点
+![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256879044.png)
+4.  space-between: 两端对齐
+
+先看效果再说原理：
+
+![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591257094293.png)
+
+> 每两个伸缩项间的距离 = (伸缩容器的宽度 - 所有伸缩项的宽度的总和) / (伸缩项的个数 - 1)
+
+伸缩项（个数大于2时）的排列规律是：起点、终点各一个，剩下的间距为 `每两个伸缩项间的距离`。
+
+
