@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>如何利用 VSCode 打造一个 java 的开发环境 - Sharef</title>
+  
+    <meta name="keywords" content="liunx,java,vscode">
+  
+  
+    <meta name="description" content="安装 Java 环境概述概念理解：
+J2SE 标准版
+
+J2EE 企业版
+
+J2ME 用于移动设备、嵌入式设备
+JRE、JDK、JVM之间的区别与联系
+JVM ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 cl...">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Sharef">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/atom-one-dark.css">
+
+    
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+    <!-- <p class="title" style="color: black;">Sharef</p> -->
+    <p class="title">
+      <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/640x640" alt="logo头像" style="width: 82px;
+      height: 82px;
+      max-width: 100%;
+      border-radius: 50%;">
+    </p>
+    
+    
+    <p class="subtitle" style="font-size: 1.2rem; font-family: ' STXingkai', 'KaiTi' , 'Microsoft YaHei' , 'SimSun' , sans-serif;margin: 0 auto; letter-spacing: 3px; color: #e67e22; text-overflow: ellipsis; overflow: hidden;
+    white-space: nowrap; background-image: -webkit-linear-gradient(left, #cddc39, #e67e22 25%, #cddc39 50%, #e67e22
+    75%, #cddc39) !important; -webkit-text-fill-color: transparent!important; -webkit-background-clip: text!important;
+    background-size: 200% 100%!important; animation: masked-animation 2s infinite linear !important;">
+      爱分享 爱生活 爱编程</p>
+    
+  </div>
+  <div class='b'>
+    
+    <div class="m_search">
+      <form name="searchform" class="form u-search-form">
+        <input type="text" class="input u-search-input" placeholder="" />
+        <i class="icon fas fa-search fa-fw"></i>
+      </form>
+    </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            Sharef
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/collect
+                  
+                  
+                  
+                    id="collect"
+                  >
+                  日常收集
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/collect
+                  
+                  
+                  
+                    id="collect"
+                  >
+                  日常收集
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/">
+      如何利用 VSCode 打造一个 java 的开发环境
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://blog.sharef.top" rel="nofollow">
+    <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/100x100">
+    <p>shijf</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年5月15日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <h1 id="安装-Java-环境"><a href="#安装-Java-环境" class="headerlink" title="安装 Java 环境"></a>安装 Java 环境</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><h3 id="概念理解："><a href="#概念理解：" class="headerlink" title="概念理解："></a>概念理解：</h3><ul>
+<li><p>J2SE 标准版</p>
+</li>
+<li><p>J2EE 企业版</p>
+</li>
+<li><p>J2ME 用于移动设备、嵌入式设备</p>
+<h3 id="JRE、JDK、JVM之间的区别与联系"><a href="#JRE、JDK、JVM之间的区别与联系" class="headerlink" title="JRE、JDK、JVM之间的区别与联系"></a>JRE、JDK、JVM之间的区别与联系</h3></li>
+<li><p>JVM ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 class 文件中的字节码指令进行识别并调用操作系统向上的 API 完成动作。所以说，jvm 是 Java 能够跨平台的核心，具体的下文会详细说明。</p>
+</li>
+<li><p>JRE ：英文名称（Java Runtime Environment），我们叫它：Java 运行时环境。它主要包含两个部分，jvm 的标准实现和 Java 的一些基本类库。它相对于 jvm 来说，多出来的是一部分的 Java 类库。</p>
+</li>
+<li><p>JDK ：英文名称（Java Development Kit），Java 开发工具包。jdk 是整个 Java 开发的核心，它集成了 jre 和一些好用的小工具。例如：javac.exe，java.exe，jar.exe 等。</p>
+</li>
+</ul>
+<p>显然，这三者的关系是：一层层的嵌套关系。JDK&gt;JRE&gt;JVM</p>
+<a id="more"></a>
+
+<h2 id="Linux-安装-Java-环境"><a href="#Linux-安装-Java-环境" class="headerlink" title="Linux 安装 Java 环境"></a>Linux 安装 Java 环境</h2><p>此处需要结合上一篇 <a href="https://blog.sharef.top/2020/02/21/66b0ce80-95f9-11ea-926e-6f56d5e2c488/">《在win 10 环境下 如何打造一套适合的开发环境》</a>，将ubuntu 设置为 主要的开发、运行环境。</p>
+<ul>
+<li>官网地址：<a href="https://www.oracle.com/downloads/#category-java" target="_blank" rel="noopener">https://www.oracle.com/downloads/#category-java</a> （2020/03/30版，可能链接会变化）</li>
+<li>找到 Java -&gt; Java (JDK) for Developers 点击，目前地址 ：<a href="https://www.oracle.com/java/technologies/javase-downloads.html" target="_blank" rel="noopener">https://www.oracle.com/java/technologies/javase-downloads.html</a></li>
+<li>这里采用  Linux Compressed Archive ，下载地址：<a href="https://download.oracle.com/otn-pub/java/jdk/14+36/076bab302c7b4508975440c56f6cc26a/jdk-14_linux-x64_bin.tar.gz" target="_blank" rel="noopener">https://download.oracle.com/otn-pub/java/jdk/14+36/076bab302c7b4508975440c56f6cc26a/jdk-14_linux-x64_bin.tar.gz</a> 下载太慢，尝试使用迅雷等工具，如果链接地址有 auth 字样的参数，请删除</li>
+</ul>
+<p>以下是在 linux 环境中安装, 用 <code>$</code> 来注明</p>
+<pre><code class="shell">// 新建目录
+$ sudo mkdir /url/local -p soft/java
+// 将软件包移动到新建的目录
+$ sudo mv ./jdk-14_linux-x64_bin.tar.gz /url/local/soft/java
+// 移动到 java 目录下
+$ cd /url/local/soft/java
+// 解压
+$ sudo tar -zxvf jdk-14_linux-x64_bin.tar.gz
+// `ls` 查看发现，没有jre目录，此时需要手动安装一下
+$ sudo cd jdk-14/bin &amp;&amp; ./jlink.exe --module-path jmods --add-modules java.desktop --output jre
+// 设置环境变量
+$ sudo vim /etc/profile
+// 在文件末尾添加以下代码</code></pre>
+<pre><code class="shell">// /etc/profile
+set java environment
+JAVA_HOME=/usr/local/soft/java/jdk-14        
+JRE_HOME=/usr/local/soft/java/jdk-14/jre     
+CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export JAVA_HOME JRE_HOME CLASS_PATH PATH</code></pre>
+<pre><code class="shell">// 刷新终端区域，使配置生效。
+$ sudo source /etc/profile
+
+// 测试
+$ java -version</code></pre>
+<p>打印出 java 版本信息，则说明 JDK 安装成功</p>
+<p><strong>注意，如果你在 <code>wsl</code>，可能需要重启 linux 子系统，简单除暴，重启下电脑</strong></p>
+<h1 id="安装-maven-并配置-阿里源"><a href="#安装-maven-并配置-阿里源" class="headerlink" title="安装 maven 并配置 阿里源"></a>安装 maven 并配置 阿里源</h1><ul>
+<li>官网地址：<a href="https://maven.apache.org/download.cgi" target="_blank" rel="noopener">https://maven.apache.org/download.cgi</a></li>
+<li>国内加速地址：<a href="http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz" target="_blank" rel="noopener">http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz</a></li>
+</ul>
+<pre><code class="shell">// 新建目录
+$ sudo mkdir /url/local/soft/maven 
+// 移动到新建好的目录
+$ cd /url/local/soft/maven 
+// 下载安装包
+$ sudo wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+// 解压
+$ sudo tar zvxf apache-maven-3.6.3-bin.tar.gz
+// 测试安装包, 如果可以打印出版本信息，则下载、解压没有问题
+$ sudo cd apache-maven-3.6.3 &amp;&amp; ./bin/mvn -v </code></pre>
+<pre><code class="shell">// 设置环境变量
+$ sudo vim /etc/profile
+// 在文件结尾添加以下配置信息
+
+export MAVEN_HOME=/url/local/soft/maven/apache-maven-3.6.3
+
+export PATH=$MAVEN_HOME/bin:$PATH
+
+// 保存并source profile
+$ sudo source /ect/profile
+
+// 测试环境变量
+$ mvn -v</code></pre>
+<p>打印出 maven  版本信息，则说明 maven 安装成功<br><strong>注意，如果你在 <code>wsl</code>，可能需要重启 linux 子系统，简单除暴，重启下电脑</strong></p>
+<ul>
+<li>配置国内 阿里 镜像 源，或者是 私有库地址加速</li>
+</ul>
+<pre><code class="shell"> &lt;mirror&gt;
+
+      &lt;id&gt;alimaven&lt;/id&gt;
+
+      &lt;name&gt;aliyun maven&lt;/name&gt;
+
+      &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;
+
+      &lt;mirrorOf&gt;central&lt;/mirrorOf&gt;       
+
+&lt;/mirror&gt;</code></pre>
+<p>首先，编辑文件 <code>/url/local/soft/maven/apache-maven-3.6.3/conf/settings.xml</code>，将上述的配置信息添加到 mirrors（镜像）节点。<br>然后，重启 vs code，即可生效。</p>
+<h1 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h1><ul>
+<li>java 或者 jdk 安装路径 <code>/usr/local/soft/java/jdk-14</code></li>
+<li>maven 安装路径 <code>/usr/local/soft/maven/apache-maven-3.6.3</code></li>
+</ul>
+<p>可能每个人 安装的 路径 不太相同，除非是按着以上步骤来的，不过不要紧，可以通过<br><code>which mvn</code> 和 <code>which java</code> 分别来查看 当前系统安装的 maven 和 java 的路径<br>比如我查到的路径分别为：</p>
+<ul>
+<li><code>/usr/local/soft/maven/apache-maven-3.6.3/bin/mvn</code></li>
+<li><code>/usr/local/soft/java/jdk-14/bin/java</code></li>
+</ul>
+<p>So easy, too happy !</p>
+<h1 id="安装扩展包"><a href="#安装扩展包" class="headerlink" title="安装扩展包"></a>安装扩展包</h1><ul>
+<li><ol>
+<li>搜索并安装  java Extension Pack </li>
+</ol>
+</li>
+<li><ol start="2">
+<li>搜索并安装 Spring Boot Extension Pack</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>重启编辑器</li>
+</ol>
+<p>以上两个扩展已关联java项目开发主要使用的maven、springboot等所需要的扩展。</p>
+</li>
+</ul>
+<h1 id="配置-maven、java-扩展包"><a href="#配置-maven、java-扩展包" class="headerlink" title="配置 maven、java 扩展包"></a>配置 maven、java 扩展包</h1><p>点左下角的设置图标-&gt;设置</p>
+<pre><code class="json">// settings.json
+{
+    &quot;java.home&quot;: &quot;/usr/local/soft/java/jdk-14&quot;,
+    &quot;java.configuration.maven.userSettings&quot;: &quot;/url/local/soft/maven/apache-maven-3.6.3/conf/settings.xml&quot;,
+    &quot;maven.executable.path&quot;: &quot;/usr/local/soft/maven/apache-maven-3.6.3/bin/mvn&quot;,
+    &quot;maven.terminal.useJavaHome&quot;: true,
+    &quot;maven.terminal.customEnv&quot;: [
+        {
+            &quot;environmentVariable&quot;: &quot;JAVA_HOME&quot;,
+            &quot;value&quot;: &quot;/usr/local/soft/java/jdk-14&quot;
+        }
+    ]
+}</code></pre>
+<p>主要的配置信息，如上。</p>
+<h1 id="创建一个-Spring-Boot-项目"><a href="#创建一个-Spring-Boot-项目" class="headerlink" title="创建一个 Spring Boot 项目"></a>创建一个 Spring Boot 项目</h1><blockquote>
+<p>输入Ctrl + Shift + P 打开命令面板，按照以下步骤填写相应内容即可：</p>
+<ol>
+<li>输入Spring，选择maven类型工程</li>
+<li>选择工程的语言：java</li>
+<li>填写工程的Group Id：com.test</li>
+<li>填写工程的ArtifactId：demo</li>
+<li>选择springboot版本：2.0.5</li>
+<li>搜索添加你需要的依赖库，鼠标单击可勾选，这里只添加以下几个：<br>DevTools（代码修改热更新，无需重启）、Web（集成tomcat、SpringMVC）、Lombok（智能&gt; 生成setter、getter、toString等接口，无需手动生成，代码更简介）</li>
+<li>选定依赖库后回车，然后选择一个目录用于初始化工程文件，最后会提示是否打开工程目录，点”open it”，或者自己手动从编辑器左侧的文件-打开文件夹-选定刚才这个目录即可。</li>
+</ol>
+</blockquote>
+<h1 id="配置运行环境"><a href="#配置运行环境" class="headerlink" title="配置运行环境"></a>配置运行环境</h1><p>启动工程之前还需要配置下运行环境，点左边的小虫子图标，然后点上面的下拉箭头，选择添加配置，VS Code会自动为我们创建启动配置，我们只要修改mainClass就好了，配置示例如下：</p>
+<pre><code class="json">{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    &quot;version&quot;: &quot;0.2.0&quot;,
+    &quot;configurations&quot;: [
+        {
+            &quot;type&quot;: &quot;java&quot;,
+            &quot;name&quot;: &quot;CodeLens (Launch) - DemoApplication&quot;,
+            &quot;request&quot;: &quot;launch&quot;,
+            &quot;mainClass&quot;: &quot;com.example.demo.DemoApplication&quot;,
+            &quot;projectName&quot;: &quot;demo&quot;
+        }
+    ]
+}</code></pre>
+<p>按F5或者点 DemoApplication.java 的 run 按钮启动，此时在命令行可知tomcat服务已经启动，端口号是8080，访问路径根目录为空。</p>
+<p>在浏览器访问 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a><br>提示如下错误：</p>
+<hr>
+<p><strong>Whitelabel Error Page</strong><br>This application has no explicit mapping for /error, so you are seeing this as a fallback.</p>
+<p>Mon Mar 30 19:41:47 CST 2020<br>There was an unexpected error (type=Not Found, status=404).<br>No message available</p>
+<hr>
+<p>这说明我们的服务确实启动可用了，但是访问出这个错误，是因为我们没有定义服务器访问这个根路径对应的应答接口导致的。我们在 demo 包下面新建个 controller 包，然后新建个 HomeController.java 文件，内容如下：</p>
+<pre><code class="java">package com.example.demo.controller;
+
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class HomeController {
+
+    @RequestMapping(&quot;/&quot;)
+    public String home(){
+        return &quot;你好，欢迎使用Visual Studio Code!&quot;;
+    }
+}</code></pre>
+<p>此时等待 应用重启，再次访问 <a href="http://localhost:8080" target="_blank" rel="noopener">http://localhost:8080</a> </p>
+<hr>
+<p>你好，欢迎使用 Visual Studio Code!</p>
+<hr>
+<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h1><p>欢迎使用 *<em>Visual Studio Code *</em>！</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><blockquote>
+<p>原文链接：<a href="https://blog.csdn.net/xiaocy66/java/article/details/82875770" target="_blank" rel="noopener">https://blog.csdn.net/xiaocy66/java/article/details/82875770</a></p>
+</blockquote>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://blog.sharef.top/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/>https://blog.sharef.top/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/alipay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/wechatpay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-06-04T16:30:14+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年6月4日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/liunx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>liunx</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/java/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>java</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vscode/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>vscode</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.sharef.top/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/&title=如何利用 VSCode 打造一个 java 的开发环境 - Sharef&summary=安装 Java 环境概述概念理解：
+J2SE 标准版
+
+J2EE 企业版
+
+J2ME 用于移动设备、嵌入式设备
+JRE、JDK、JVM之间的区别与联系
+JVM ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 class 文件中的字节码指令进行识别并调用操作系统向上的 API 完成动作。所以说，jvm 是 Java 能够跨平台的核心，具体的下文会详细说明。
+
+JRE ：英文名称（Java Runtime Environment），我们叫它：Java 运行时环境。它主要包含两个部分，jvm 的标准实现和 Java 的一些基本类库。它相对于 jvm 来说，多出来的是一部分的 Java 类库。
+
+JDK ：英文名称（Java Development Kit），Java 开发工具包。jdk 是整个 Java 开发的核心，它集成了 jre 和一些好用的小工具。例如：javac.exe，java.exe，jar.exe 等。
+
+
+显然，这三者的关系是：一层层的嵌套关系。JDK&gt;JRE&gt;JVM"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://blog.sharef.top/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/&title=如何利用 VSCode 打造一个 java 的开发环境 - Sharef&summary=安装 Java 环境概述概念理解：
+J2SE 标准版
+
+J2EE 企业版
+
+J2ME 用于移动设备、嵌入式设备
+JRE、JDK、JVM之间的区别与联系
+JVM ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 class 文件中的字节码指令进行识别并调用操作系统向上的 API 完成动作。所以说，jvm 是 Java 能够跨平台的核心，具体的下文会详细说明。
+
+JRE ：英文名称（Java Runtime Environment），我们叫它：Java 运行时环境。它主要包含两个部分，jvm 的标准实现和 Java 的一些基本类库。它相对于 jvm 来说，多出来的是一部分的 Java 类库。
+
+JDK ：英文名称（Java Development Kit），Java 开发工具包。jdk 是整个 Java 开发的核心，它集成了 jre 和一些好用的小工具。例如：javac.exe，java.exe，jar.exe 等。
+
+
+显然，这三者的关系是：一层层的嵌套关系。JDK&gt;JRE&gt;JVM"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://blog.sharef.top/2020/05/15/30e42f40-9667-11ea-a46f-b77762f93269/&title=如何利用 VSCode 打造一个 java 的开发环境 - Sharef&summary=安装 Java 环境概述概念理解：
+J2SE 标准版
+
+J2EE 企业版
+
+J2ME 用于移动设备、嵌入式设备
+JRE、JDK、JVM之间的区别与联系
+JVM ：英文名称（Java Virtual Machine），就是我们耳熟能详的 Java 虚拟机。它只认识 xxx.class 这种类型的文件，它能够将 class 文件中的字节码指令进行识别并调用操作系统向上的 API 完成动作。所以说，jvm 是 Java 能够跨平台的核心，具体的下文会详细说明。
+
+JRE ：英文名称（Java Runtime Environment），我们叫它：Java 运行时环境。它主要包含两个部分，jvm 的标准实现和 Java 的一些基本类库。它相对于 jvm 来说，多出来的是一部分的 Java 类库。
+
+JDK ：英文名称（Java Development Kit），Java 开发工具包。jdk 是整个 Java 开发的核心，它集成了 jre 和一些好用的小工具。例如：javac.exe，java.exe，jar.exe 等。
+
+
+显然，这三者的关系是：一层层的嵌套关系。JDK&gt;JRE&gt;JVM"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/06/04/c130c640-a638-11ea-bfe8-f743083da075/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>彻底搞定flex (持续更新)</p>
+                <p class='content'>flex 布局初体验
+假设我们要实现一个这样的布局，三个色块水平排版;
+一般写法&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&l...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/02/21/66b0ce80-95f9-11ea-926e-6f56d5e2c488/'>
+                <p class='title'>在 win 10 环境下 如何打造一套适合的开发环境之前端环境<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>前提
+win10 专业版 
+
+
+如果安装的是 win10 企业版本呢，由于太纯净了，连应用商店都没有，我们需要自己去下载一下应用商店
+
+
+开启 Linux 子系统服务
+操作 步骤：
+
+打开 控制...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '如何利用 VSCode 打造一个 java 的开发环境',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概念理解："><span class="toc-text">概念理解：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JRE、JDK、JVM之间的区别与联系"><span class="toc-text">JRE、JDK、JVM之间的区别与联系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux-安装-Java-环境"><span class="toc-text">Linux 安装 Java 环境</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.1'
+      loop='all'
+      order='list'
+      fixed='true'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='2438292020'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:shijfprivate@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/Shijf"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=364936028"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://blog.sharef.top">Copyright © 2017-2020 Shijf</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "hnqUwWuMC7HSYav37IQClxVp-gzGzoHsz",
+    appKey: "C21Y1LPJiLtmtXhliUfAtbtE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
