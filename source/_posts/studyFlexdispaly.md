@@ -1,5 +1,5 @@
 ---
-uuid: c130c640-a638-11ea-bfe8-f743083da075
+uuid: 1d9f96d0-a63f-11ea-ab98-658793ecd4cf
 title: 彻底搞定flex (持续更新)
 tags: []
 categories:
@@ -204,7 +204,7 @@ ul {
 ```
 ![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256835268.png)
 2. flex-end ：让伸缩项与主轴**终点**对齐
-![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256801998.png)
+![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591260053670.png)
 3.  center: 伸缩项位于主轴的中点
 ![image](https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/1591256879044.png)
 4.  space-between: 两端对齐
