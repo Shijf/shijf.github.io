@@ -1,13 +1,10 @@
-<!--
- * @Github: https://github.com/shijf
- * @Author: shijf
- * @Date: 2020-07-25 21:19:02
- * @LastEditTime: 2020-07-25 21:19:38
- * @LastEditors: shijf
- * @FilePath: /sharef.top/source/_posts/Record the practical operation of obtaining website authentication.md
- * @Description: 
---> 
-
+---
+uuid: 9624aeb0-afd6-11ea-9390-270475cb65f3
+title: 记一次获取网站鉴权的实践操作
+tags:
+categories: []
+date: 2020-07-25 21:29:02
+---
 
 # 记一次获取网站鉴权的实践操作
 
