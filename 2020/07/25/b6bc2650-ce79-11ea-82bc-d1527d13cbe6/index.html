@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#2.6.6'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>Record the practical operation of obtaining website authentication - Sharef</title>
+  
+  
+    <meta name="description" content=" 
+
+
+记一次获取网站鉴权的实践操作
+在移动端平台（就先简称PF平台）上新应用，一般会经过安全校验。所以每一个应用都会采取一些攻击策略手段来保障应用的安全稳定。一般是 xss 攻击，不过针对今天举例的系统（就先简称为BCP）他做的还是很棒的。还有就是鉴权登录，这也是主要能攻破BCP系统的关键点。
+另外本文只分析破...">
+  
+
+  <!-- feed -->
+  
+    <link rel="alternate" href="/atom.xml" title="Sharef">
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/atom-one-dark.css">
+
+    
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+  
+</head>
+
+<body>
+  
+  <div class="cover-wrapper">
+    
+      <cover class='cover post half'>
+        <div class='cover-body'>
+  <div class='a'>
+    
+    
+    <!-- <p class="title" style="color: black;">Sharef</p> -->
+    <p class="title">
+      <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/640x640" alt="logo头像" style="width: 82px;
+      height: 82px;
+      max-width: 100%;
+      border-radius: 50%;">
+    </p>
+    
+    
+    <p class="subtitle" style="font-size: 1.2rem; font-family: ' STXingkai', 'KaiTi' , 'Microsoft YaHei' , 'SimSun' , sans-serif;margin: 0 auto; letter-spacing: 3px; color: #e67e22; text-overflow: ellipsis; overflow: hidden;
+    white-space: nowrap; background-image: -webkit-linear-gradient(left, #cddc39, #e67e22 25%, #cddc39 50%, #e67e22
+    75%, #cddc39) !important; -webkit-text-fill-color: transparent!important; -webkit-background-clip: text!important;
+    background-size: 200% 100%!important; animation: masked-animation 2s infinite linear !important;">
+      爱分享 爱生活 爱编程</p>
+    
+  </div>
+  <div class='b'>
+    
+    <div class="m_search">
+      <form name="searchform" class="form u-search-form">
+        <input type="text" class="input u-search-input" placeholder="" />
+        <i class="icon fas fa-search fa-fw"></i>
+      </form>
+    </div>
+    
+    <div class='menu navigation'>
+      <ul class='cover-list-h'>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+      </cover>
+    
+    <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+            Sharef
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/collect
+                  
+                  
+                  
+                    id="collect"
+                  >
+                  日常收集
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="搜索..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/collect
+                  
+                  
+                  
+                    id="collect"
+                  >
+                  日常收集
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" 
+                  
+                  
+                  >
+                  <i class='fas fa-book fa-fw'></i>开源项目
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/ExcelToWord
+                  
+                  
+                  
+                    id="https:githubcomShijfExcelToWord"
+                  >
+                  ExcelToWord
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://blog.sharef.top/egg-echat
+                  
+                  
+                  
+                    id="https:blogshareftopegg-echat"
+                  >
+                  egg-echat
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="flat-box" href=https://github.com/Shijf/fp-auth
+                  
+                  
+                  
+                    id="https:githubcomShijffp-auth"
+                  >
+                  fp-auth(doing)
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/blog/message
+                  
+                  
+                  
+                    id="blogmessage"
+                  >
+                  <i class='fas fa-edit fa-fw'></i>留言板
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+  </div>
+
+
+  <div class="l_body">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/">
+      Record the practical operation of obtaining website authentication
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="https://blog.sharef.top" rel="nofollow">
+    <img src="https://cdn.learnku.com/uploads/avatars/18751_1504315422.jpeg!/both/100x100">
+    <p>shijf</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年7月25日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <!--
+ * @Github: https://github.com/shijf
+ * @Author: shijf
+ * @Date: 2020-07-25 21:19:02
+ * @LastEditTime: 2020-07-25 21:19:38
+ * @LastEditors: shijf
+ * @FilePath: /sharef.top/source/_posts/Record the practical operation of obtaining website authentication.md
+ * @Description: 
+--> 
+
+
+<h1 id="记一次获取网站鉴权的实践操作"><a href="#记一次获取网站鉴权的实践操作" class="headerlink" title="记一次获取网站鉴权的实践操作"></a>记一次获取网站鉴权的实践操作</h1><blockquote>
+<p>在移动端平台（就先简称PF平台）上新应用，一般会经过安全校验。所以每一个应用都会采取一些攻击策略手段来保障应用的安全稳定。一般是 xss 攻击，不过针对今天举例的系统（就先简称为BCP）他做的还是很棒的。还有就是鉴权登录，这也是主要能攻破BCP系统的关键点。</p>
+<p>另外本文只分析破解过程，对于原理和一些名词不做过多解释。</p>
+</blockquote>
+<h2 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h2><ul>
+<li><p>fillder（抓包工具，这个其实有没有都行，主要是爬取接口的时候，可以比较直观的。）</p>
+</li>
+<li><p>谷歌浏览器</p>
+</li>
+<li><p>PostMan（用户发送接口请求）</p>
+</li>
+</ul>
+<h2 id="过程分析"><a href="#过程分析" class="headerlink" title="过程分析"></a>过程分析</h2><h3 id="xss-诱导攻击"><a href="#xss-诱导攻击" class="headerlink" title="xss 诱导攻击"></a>xss 诱导攻击</h3><p>BCP系统这方面考虑的比较全面，暂且不分析了。</p>
+<h3 id="最高鉴权获取"><a href="#最高鉴权获取" class="headerlink" title="最高鉴权获取"></a>最高鉴权获取</h3><p>这也是本篇文章要重点分析的部分。</p>
+<h4 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h4><p>打开PF平台上的 BCP 系统，在网络请求中发现，这样一个接口：</p>
+<ul>
+<li><p>url：<code>jtsi/UserLogin/login</code> </p>
+</li>
+<li><p>method：POST</p>
+</li>
+<li><p>作用：用户登录，返回用户登录信息</p>
+</li>
+<li><p>参数字段：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>取值（爬取发现）</th>
+<th>类型</th>
+<th>是否必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>deviceType</td>
+<td>D</td>
+<td>string</td>
+<td>是</td>
+<td>判断设备类型，貌似没啥用，不断啥就用D这个值就行</td>
+</tr>
+<tr>
+<td>domain</td>
+<td>BCPWx</td>
+<td>string</td>
+<td>否</td>
+<td>用来判断是否是在 移动端 ，移动端就是 BCPWx，PC端啥也不写</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>1595656277</td>
+<td>number</td>
+<td>是</td>
+<td>时间戳，应该是为了标识当前调用的事件</td>
+</tr>
+<tr>
+<td>login_type</td>
+<td>login_user</td>
+<td>string</td>
+<td>是</td>
+<td>用户登录类型，用 login_user 这个就行</td>
+</tr>
+<tr>
+<td>passwd</td>
+<td>BcpWx%3c6****efbe84%3E</td>
+<td>string</td>
+<td>是</td>
+<td>用户的密码（为了安全，我进行了脱密处理），下文会重点分析，这个字符串，关键突破点</td>
+</tr>
+<tr>
+<td>t</td>
+<td>1595656277720</td>
+<td>number</td>
+<td>是</td>
+<td>又来一个时间戳，不过这个是 毫秒 的，上面的 timestamp 是秒的。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>返回参数：</p>
+<pre><code class="josn">{
+  &quot;Result&quot;: true,
+  &quot;ReturnCode&quot;: &quot;000&quot;,
+  &quot;ReturnMessage&quot;: {
+      &quot;orgName&quot;: &quot;******团队&quot;, 
+      &quot;roleIds&quot;: [&quot;-1&quot;],
+      &quot;statusMsg&quot;: &quot;登录成功&quot;,
+      &quot;domain&quot;: &quot;&quot;,
+      &quot;sessionId&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;,
+      &quot;userName&quot;: &quot;***&quot;,
+      &quot;userId&quot;: &quot;********&quot;,
+      &quot;orgId&quot;: &quot;**********&quot;,
+      &quot;depts&quot;: {
+          &quot;num&quot;: &quot;1&quot;,
+          &quot;**********&quot;: &quot;****团队&quot;
+      },
+      &quot;status&quot;: 1,
+      &quot;token&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;
+  }
+}</code></pre>
+</li>
+</ul>
+<p>从上面的请求参数开始分析：</p>
+<ul>
+<li><p>第一步：</p>
+<p>BCP 系统的致命漏洞，也是出现在此。用户在经过 PF 平台的 Oauth2 授权后，竟然没有直接返回 token 值，而是在Oauth2 授权拿到 用户id 后，神奇的是又去请求 BCP 系统自带的登录接口（UserLogin/login），那么他就需要账号密码。</p>
+</li>
+<li><p>第二步：</p>
+<p>通过第一步发现，系统在登陆前，肯定会有一次获取用户密码的请求，果不其然，在进一步抓包处理后（由于只是在手机端简单的注入了一些检测脚本，所以并没有拿到返回密码的接口，或者说在我注入脚本之前，系统就已经完成了获取密码操作，所以我一开始没有拿到这个接口），发现了一个返回用户密码的接口，这个稍后再分析。</p>
+</li>
+<li><p>第三步：</p>
+<p>第二步说到：会有一个返回密码的接口，那么我们要想获取到最高权限（系统管理员）的密码，就必然得知道管理员（当然我是知道，该系统的管理员的用户id，不知道也没关系，下文会讲解怎么拿）的账号密码。</p>
+</li>
+</ul>
+<h4 id="获取管理员账号1"><a href="#获取管理员账号1" class="headerlink" title="获取管理员账号1"></a>获取管理员账号1</h4><p>上文说到，我已经知道管理员的帐号了，因为就是系统负责人，我肯定是知道的，假如说我不知道，怎么办？</p>
+<p>大家知道，在公司内部一般的员工编号都是数字或者有规律的，最主要的就是可以根据自己的账号去推演，毕竟破解最多的就是穷举法。</p>
+<p>为了更好的解释怎么获取管理员账号，我在下文会提到根据什么原理拿到管理员账号，此处假设我们知道管理员的账号了。</p>
+<h4 id="寻求加密突破点"><a href="#寻求加密突破点" class="headerlink" title="寻求加密突破点"></a>寻求加密突破点</h4><p>我们再一次回到，在移动端发现的登录接口，分析一下，此处的请求参数：passwd，为了解释简单，我们假设一个账号：12345678，他的密码（当然我是根据他的规律来生成的）是：BcpWx%3c25d55ad283aa400af464c76d713c07ad%3e，根据经验（也是常识），在接口传参数的时候我们不会有%号的出，也是我们是通过抓包拿到的字符串，肯定也会经过URL编码，那么我们反编码一下：BcpWx&lt;25d55ad283aa400af464c76d713c07ad&gt;，这个规律就有了，密码应该是加密过的，加密过后应该是：25d55ad283aa400af464c76d713c07ad，然后开发者又在密码前后分别加了 “BcpWx&lt;” 和 “&gt;”，当然如果你经验够足的话，一眼就能判断 “&gt;” 的url 编码 为 %3c， “&lt; “的编码为 %3e。那么就只剩下 25d55ad283aa400af464c76d713c07ad ，咋一看，这咋解密，无从下手，上文说到，破解、攻击等手段常用的就是穷举法（没想到第一个 BCP 就中了），最常用的就是 md5 加密，不管三七二十一，先来一波md5加密：</p>
+<table>
+<thead>
+<tr>
+<th>字符串</th>
+<th>12345678</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>16位 小写</td>
+<td>83aa400af464c76d</td>
+</tr>
+<tr>
+<td>16位 大写</td>
+<td>83AA400AF464C76D</td>
+</tr>
+<tr>
+<td>32位 小写</td>
+<td>25d55ad283aa400af464c76d713c07ad</td>
+</tr>
+<tr>
+<td>32位 大写</td>
+<td>25D55AD283AA400AF464C76D713C07AD</td>
+</tr>
+</tbody></table>
+<p><strong>注：因为我知道我得账号是多少，所以我是拿自己的 userid，通过md5 去比对的。</strong></p>
+<p>到此返现了惊喜，md5 加密的 <strong>32位 小写</strong> 结果不就是，我们在接口中发现的字符串吗？其实到这里就已经攻破了，当前这是后来分析，才知道的。假设不知道的时候，我们就需要进一步发现。因为这个只是在移动端登录的接口，即使知道了，操作起来不太方便。接下来我们登录 PC　端看看会有怎样的发现。</p>
+<h4 id="获取管理员账号-2"><a href="#获取管理员账号-2" class="headerlink" title="获取管理员账号 2"></a>获取管理员账号 2</h4><p>接上上小结的内容，假设你不知道管理员账号怎么办？PC 端登录，是用的公司统一认证平台，当登录到，总共请求了 3（有一个接口请求了两次，重复的，阿西吧） 接口：<code>/jtsi/UserLogin/getHeadImg</code> 、<code>/jtsi/JTApplicationService/getApplications</code>和<code>/jtsi/JTApplicationService/getApplicationMenu</code></p>
+<p>第一个顾名思义，请求头像的不用管，重点部分是后边两个接口，超管也顾名思义，啥都管，那么他的应用和菜单树肯定是最多的，只要根据公司的员工编号，写个批量小脚本，哪个员工的菜单树最多，他肯定就是超管了就没跑了。也有的是 admin 这种。</p>
+<h4 id="接口小技巧"><a href="#接口小技巧" class="headerlink" title="接口小技巧"></a>接口小技巧</h4><p>根据pc端的接口请求可以看出，BCP 系统鉴权使用的 token （移动端）和 sessionId （PC端），这也就不难理解，为啥在 <code>jtsi/UserLogin/login</code> 的返回结果中，为啥既有 token 还有 sessionId 了，但是他忽略了一点，也是 BCP 系统最致命的。从返回结果我们可以得出两个结论：</p>
+<ol>
+<li>后台生成 token 和 sessionId 的机制一样，只是换了个名称而已</li>
+<li>我们可以利用移动端生成的密码，去获取 token，而此处的 token也即 PC端的 sessionId </li>
+</ol>
+<p>为什么要用移动端的接口去生成 token（sessionId ） 呢，上文说到，PC端登录和移动端登录时，是通过 domain 参数来判断的，加入我们不填 domain 参数，你会发现，用 md5 生成的密码对 PC 端的登录接口没用的，这也引发了我继续探寻下去的兴趣。</p>
+<a id="more"></a>
+
+<h4 id="探寻PC端登录接口"><a href="#探寻PC端登录接口" class="headerlink" title="探寻PC端登录接口"></a>探寻PC端登录接口</h4><p>上一节说到，如果想用 md5 的密码来获取 token，我们怎么办呢？看一下 PC 的登录接口，在登录的一瞬间，我抓到三个接口：<code>/jtsi/IAMService/getUserInfo</code> 、<code>/jtsi/UserLogin/generatorKey</code> 和 <code>/jtsi/UserLogin/login</code></p>
+<ul>
+<li><p>getUserInfo (根据统一认证平台返回的code，拿到当前用户id，其实都拿到 id 了，还进行以下两步，哎)</p>
+<p>请求参数：</p>
+</li>
+</ul>
+<pre><code class="json">  {
+    &quot;code&quot;: &quot;e829b71a*******5d803903b82&quot;,
+    &quot;url&quot;: &quot;http://**************/jtcl/bcp-eb/initial.html&quot;,
+    &quot;domain&quot;: &quot;&quot;,
+    &quot;deviceType&quot;: &quot;D&quot;
+  }</code></pre>
+<pre><code>  返回响应(移动端也是因为这个出现的漏洞)：</code></pre><pre><code class="json">{
+    &quot;Result&quot;: true,
+    &quot;ReturnCode&quot;: &quot;000&quot;,
+    &quot;ReturnMessage&quot;: {
+        &quot;password&quot;: &quot;BcpIAMLogin&lt;069*********2f8346768&gt;&quot;,
+        &quot;userId&quot;: &quot;********&quot;
+    }
+}</code></pre>
+<ul>
+<li><p>generatorKey（多次调用后发现，这个加密 key 居然是固定不变的，即每个人都是固定的一个值，那么我们只需要获取一次，就可以拿到该用户的密码）</p>
+<p>请求参数：</p>
+</li>
+</ul>
+<pre><code class="json">  {
+      &quot;userId&quot;: &quot;********&quot;,
+      &quot;domain&quot;: &quot;&quot;,
+      &quot;deviceType&quot;: &quot;D&quot;
+  }</code></pre>
+<pre><code>  返回响应：</code></pre><pre><code class="json">{
+    &quot;Result&quot;: true,
+    &quot;ReturnCode&quot;: &quot;000&quot;,
+    &quot;ReturnMessage&quot;: {
+        &quot;type&quot;: &quot;AES&quot;,
+        &quot;key&quot;: &quot;8NON*******ysWpM&quot;
+    }
+}</code></pre>
+<ul>
+<li><p>login（登录接口，返回 sessionId）</p>
+<p>请求参数：</p>
+</li>
+</ul>
+<pre><code class="json">{
+    &quot;userId&quot;: &quot;********&quot;,
+    &quot;domain&quot;: &quot;&quot;,
+    &quot;deviceType&quot;: &quot;D&quot;,
+    &quot;login_type&quot;: &quot;login_user&quot;,
+    &quot;passwd&quot;: &quot;GasFj9PbWBEgr%2FU7IDI%2B1Eg5rtbVDI9KEK38dr%2Fcg%2BOWZk***zcwa4GP1qO&quot;, // 一般有百分号的都是经俩编码的，记得解码
+    &quot;timestamp&quot;: 1595642745
+}</code></pre>
+<p>​    返回响应：</p>
+<pre><code class="json">{
+    &quot;Result&quot;: true,
+    &quot;ReturnCode&quot;: &quot;000&quot;,
+    &quot;ReturnMessage&quot;: {
+        &quot;orgName&quot;: &quot;****团队&quot;,
+        &quot;roleIds&quot;: [&quot;-1&quot;],
+        &quot;statusMsg&quot;: &quot;登录成功&quot;,
+        &quot;domain&quot;: &quot;&quot;,
+        &quot;sessionId&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;,
+        &quot;userName&quot;: &quot;***&quot;,
+        &quot;userId&quot;: &quot;********&quot;,
+        &quot;orgId&quot;: &quot;******0***&quot;,
+        &quot;depts&quot;: {
+            &quot;num&quot;: &quot;1&quot;,
+            &quot;******0***&quot;: &quot;***团队&quot;
+        },
+        &quot;status&quot;: 1,
+        &quot;token&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;
+    }
+}</code></pre>
+<p>从上面三个接口可以看出，是依次递进的，先通过 <strong>getUserInfo</strong> 拿到 用户账号即 userId , 再通过 <strong>generatorKey</strong> 拿到加密密钥（后面会讲这个用处，以及好玩之处），最后通过 *<em>login *</em>接口，获得 sessionId 来登录系统。</p>
+<p>思路理清后，好像还是不能获得 PC 端登录时的密码是啥，即 <code>domain</code>参数为空时，调用 login 接口。但是通过第二个接口，可以给我们一些惊喜，我们分析一下BCP系统的前端登录逻辑：</p>
+<p>拿到 login.js 文件（本文只显示关键代码）：</p>
+<pre><code class="js">// ……部分代码
+reqData.userId = userId; // 这个是 用户的id
+var keyAction = loginAction.generatorKey; // 获取 key 的接口的 方法
+jt.ajax(keyAction, reqData, function(resData){ // 上文中提到的第二个接口即获取 key 值，就是这句代码来 执行后发出的请求
+if(resData &amp;&amp; resData.type &amp;&amp; resData.key){ 
+    var encryptType = resData.type; // 拿到 key 值的加密 类型，即加密密码时，是采用哪种加密方式
+    var encryptKey = resData.key; // 获取加密时，需要的密钥
+    passwd = jt.util.encryptString(passwd, encryptKey, encryptType); // 加密代码，都是在前端加密的，这个开发者真是o((⊙﹏⊙))o.，我们可以在控制台调用这个方法，来获取方法
+    passwd = encodeURIComponent(passwd); // 开发者可能觉得上边的加密，还需要 编码以下
+    }
+    jt.security.login(loginAction.login, userId, passwd, $scope.myCallback, reqData); // 执行登录操作
+});
+</code></pre>
+<p>encryptString 方法的代码(在jt.core.min.js， 这个真心应该放在后端代码中)：</p>
+<pre><code class="js">// 加密代码
+var encryptString=function(plaint,key,type){type=type?type.toUpperCase():type;if(&quot;AES&quot;==type){return AESEncrypt(plaint,key)}else{if(&quot;DES&quot;==type||&quot;3DES&quot;==type){return DESEncrypt(plaint,key)}else{if(&quot;RSA&quot;==type){return RSAEncrypt(plaint,key)}else{return plaint}}}};
+// 解密代码，如果你不知道自己的密码，可以在控制台调用以下这个方法，O(∩_∩)O
+var decryptString=function(encrypted,key,type){type=type?type.toUpperCase():type;if(&quot;AES&quot;==type){return AESDecrypt(encrypted,key)}else{if(&quot;DES&quot;==type||&quot;3DES&quot;==type){return DESDecrypt(encrypted,key)}else{if(&quot;RSA&quot;==type){return RSADecrypt(encrypted,key)}else{return encrypted}}}};</code></pre>
+<p>到此，我们就拿到了用户的在加密后的密码，从而也就拿到了，通过 PC 端请求接口时，即 <code>domain</code>为空时，获取到他的 token值，也就是 凭证，接下来只需要知道接口就可以为所欲为了，也就获取了鉴权权限。</p>
+<h3 id="重点来了"><a href="#重点来了" class="headerlink" title="重点来了"></a>重点来了</h3><p>通过在PC端登录逻辑的分析，BCP系统的用户密码就是移动端请求时参数里面的密码（BcpWx%3c6****efbe84%3E），在PC端登录时，再进行加密此密码，来登录PC端。</p>
+<h3 id="题外话"><a href="#题外话" class="headerlink" title="题外话"></a>题外话</h3><p>可能超管都不知道他的密码是啥（超管登录是通过统一认证平台登录的），因为开发者和超管不是一个人，密码也是程序批量自动生成的，他想改还不知到原密码，其实这才是最好玩的。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>熟话说，破解不是目的，目的是为了学（po）习（jie）。</p>
+<p>本文中，没有用插图，主要是为了加载速度，已经易于传播。</p>
+<p>如果开发BCP系统的开发者能：</p>
+<ul>
+<li>多余参数不要，省带宽，降风险</li>
+<li>加密在后端做</li>
+<li>多一些开发经验</li>
+</ul>
+<p>那么我也不会这么轻易的拿到鉴权权限。</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=https://blog.sharef.top/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/>https://blog.sharef.top/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+    
+    
+
+<section class="widget qrcode  desktop mobile">
+  
+
+  <div class='content article-entry'>
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/alipay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+      
+        <div class='fancybox'><img src='https://cdn.jsdelivr.net/gh/shijf/shijf.github.io/images/wechatpay.png'
+        
+          height='64px'
+        ></div>
+      
+    
+  </div>
+</section>
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-07-25T21:20:48+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年7月25日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://connect.qq.com/widget/shareqq/index.html?url=https://blog.sharef.top/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/&title=Record the practical operation of obtaining website authentication - Sharef&summary= 
+
+
+记一次获取网站鉴权的实践操作
+在移动端平台（就先简称PF平台）上新应用，一般会经过安全校验。所以每一个应用都会采取一些攻击策略手段来保障应用的安全稳定。一般是 xss 攻击，不过针对今天举例的系统（就先简称为BCP）他做的还是很棒的。还有就是鉴权登录，这也是主要能攻破BCP系统的关键点。
+另外本文只分析破解过程，对于原理和一些名词不做过多解释。
+
+工具
+fillder（抓包工具，这个其实有没有都行，主要是爬取接口的时候，可以比较直观的。）
+
+谷歌浏览器
+
+PostMan（用户发送接口请求）
+
+
+过程分析xss 诱导攻击BCP系统这方面考虑的比较全面，暂且不分析了。
+最高鉴权获取这也是本篇文章要重点分析的部分。
+起因打开PF平台上的 BCP 系统，在网络请求中发现，这样一个接口：
+
+url：jtsi/UserLogin/login 
+
+method：POST
+
+作用：用户登录，返回用户登录信息
+
+参数字段：
+
+
+
+字段
+取值（爬取发现）
+类型
+是否必填
+说明
+
+
+
+deviceType
+D
+string
+是
+判断设备类型，貌似没啥用，不断啥就用D这个值就行
+
+
+domain
+BCPWx
+string
+否
+用来判断是否是在 移动端 ，移动端就是 BCPWx，PC端啥也不写
+
+
+timestamp
+1595656277
+number
+是
+时间戳，应该是为了标识当前调用的事件
+
+
+login_type
+login_user
+string
+是
+用户登录类型，用 login_user 这个就行
+
+
+passwd
+BcpWx%3c6****efbe84%3E
+string
+是
+用户的密码（为了安全，我进行了脱密处理），下文会重点分析，这个字符串，关键突破点
+
+
+t
+1595656277720
+number
+是
+又来一个时间戳，不过这个是 毫秒 的，上面的 timestamp 是秒的。
+
+
+
+返回参数：
+{
+  &quot;Result&quot;: true,
+  &quot;ReturnCode&quot;: &quot;000&quot;,
+  &quot;ReturnMessage&quot;: {
+      &quot;orgName&quot;: &quot;******团队&quot;, 
+      &quot;roleIds&quot;: [&quot;-1&quot;],
+      &quot;statusMsg&quot;: &quot;登录成功&quot;,
+      &quot;domain&quot;: &quot;&quot;,
+      &quot;sessionId&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;,
+      &quot;userName&quot;: &quot;***&quot;,
+      &quot;userId&quot;: &quot;********&quot;,
+      &quot;orgId&quot;: &quot;**********&quot;,
+      &quot;depts&quot;: {
+          &quot;num&quot;: &quot;1&quot;,
+          &quot;**********&quot;: &quot;****团队&quot;
+      },
+      &quot;status&quot;: 1,
+      &quot;token&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;
+  }
+}
+
+
+从上面的请求参数开始分析：
+
+第一步：
+BCP 系统的致命漏洞，也是出现在此。用户在经过 PF 平台的 Oauth2 授权后，竟然没有直接返回 token 值，而是在Oauth2 授权拿到 用户id 后，神奇的是又去请求 BCP 系统自带的登录接口（UserLogin/login），那么他就需要账号密码。
+
+第二步：
+通过第一步发现，系统在登陆前，肯定会有一次获取用户密码的请求，果不其然，在进一步抓包处理后（由于只是在手机端简单的注入了一些检测脚本，所以并没有拿到返回密码的接口，或者说在我注入脚本之前，系统就已经完成了获取密码操作，所以我一开始没有拿到这个接口），发现了一个返回用户密码的接口，这个稍后再分析。
+
+第三步：
+第二步说到：会有一个返回密码的接口，那么我们要想获取到最高权限（系统管理员）的密码，就必然得知道管理员（当然我是知道，该系统的管理员的用户id，不知道也没关系，下文会讲解怎么拿）的账号密码。
+
+
+获取管理员账号1上文说到，我已经知道管理员的帐号了，因为就是系统负责人，我肯定是知道的，假如说我不知道，怎么办？
+大家知道，在公司内部一般的员工编号都是数字或者有规律的，最主要的就是可以根据自己的账号去推演，毕竟破解最多的就是穷举法。
+为了更好的解释怎么获取管理员账号，我在下文会提到根据什么原理拿到管理员账号，此处假设我们知道管理员的账号了。
+寻求加密突破点我们再一次回到，在移动端发现的登录接口，分析一下，此处的请求参数：passwd，为了解释简单，我们假设一个账号：12345678，他的密码（当然我是根据他的规律来生成的）是：BcpWx%3c25d55ad283aa400af464c76d713c07ad%3e，根据经验（也是常识），在接口传参数的时候我们不会有%号的出，也是我们是通过抓包拿到的字符串，肯定也会经过URL编码，那么我们反编码一下：BcpWx&lt;25d55ad283aa400af464c76d713c07ad&gt;，这个规律就有了，密码应该是加密过的，加密过后应该是：25d55ad283aa400af464c76d713c07ad，然后开发者又在密码前后分别加了 “BcpWx&lt;” 和 “&gt;”，当然如果你经验够足的话，一眼就能判断 “&gt;” 的url 编码 为 %3c， “&lt; “的编码为 %3e。那么就只剩下 25d55ad283aa400af464c76d713c07ad ，咋一看，这咋解密，无从下手，上文说到，破解、攻击等手段常用的就是穷举法（没想到第一个 BCP 就中了），最常用的就是 md5 加密，不管三七二十一，先来一波md5加密：
+
+
+
+字符串
+12345678
+
+
+
+16位 小写
+83aa400af464c76d
+
+
+16位 大写
+83AA400AF464C76D
+
+
+32位 小写
+25d55ad283aa400af464c76d713c07ad
+
+
+32位 大写
+25D55AD283AA400AF464C76D713C07AD
+
+
+注：因为我知道我得账号是多少，所以我是拿自己的 userid，通过md5 去比对的。
+到此返现了惊喜，md5 加密的 32位 小写 结果不就是，我们在接口中发现的字符串吗？其实到这里就已经攻破了，当前这是后来分析，才知道的。假设不知道的时候，我们就需要进一步发现。因为这个只是在移动端登录的接口，即使知道了，操作起来不太方便。接下来我们登录 PC　端看看会有怎样的发现。
+获取管理员账号 2接上上小结的内容，假设你不知道管理员账号怎么办？PC 端登录，是用的公司统一认证平台，当登录到，总共请求了 3（有一个接口请求了两次，重复的，阿西吧） 接口：/jtsi/UserLogin/getHeadImg 、/jtsi/JTApplicationService/getApplications和/jtsi/JTApplicationService/getApplicationMenu
+第一个顾名思义，请求头像的不用管，重点部分是后边两个接口，超管也顾名思义，啥都管，那么他的应用和菜单树肯定是最多的，只要根据公司的员工编号，写个批量小脚本，哪个员工的菜单树最多，他肯定就是超管了就没跑了。也有的是 admin 这种。
+接口小技巧根据pc端的接口请求可以看出，BCP 系统鉴权使用的 token （移动端）和 sessionId （PC端），这也就不难理解，为啥在 jtsi/UserLogin/login 的返回结果中，为啥既有 token 还有 sessionId 了，但是他忽略了一点，也是 BCP 系统最致命的。从返回结果我们可以得出两个结论：
+
+后台生成 token 和 sessionId 的机制一样，只是换了个名称而已
+我们可以利用移动端生成的密码，去获取 token，而此处的 token也即 PC端的 sessionId 
+
+为什么要用移动端的接口去生成 token（sessionId ） 呢，上文说到，PC端登录和移动端登录时，是通过 domain 参数来判断的，加入我们不填 domain 参数，你会发现，用 md5 生成的密码对 PC 端的登录接口没用的，这也引发了我继续探寻下去的兴趣。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+          
+          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://blog.sharef.top/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/&title=Record the practical operation of obtaining website authentication - Sharef&summary= 
+
+
+记一次获取网站鉴权的实践操作
+在移动端平台（就先简称PF平台）上新应用，一般会经过安全校验。所以每一个应用都会采取一些攻击策略手段来保障应用的安全稳定。一般是 xss 攻击，不过针对今天举例的系统（就先简称为BCP）他做的还是很棒的。还有就是鉴权登录，这也是主要能攻破BCP系统的关键点。
+另外本文只分析破解过程，对于原理和一些名词不做过多解释。
+
+工具
+fillder（抓包工具，这个其实有没有都行，主要是爬取接口的时候，可以比较直观的。）
+
+谷歌浏览器
+
+PostMan（用户发送接口请求）
+
+
+过程分析xss 诱导攻击BCP系统这方面考虑的比较全面，暂且不分析了。
+最高鉴权获取这也是本篇文章要重点分析的部分。
+起因打开PF平台上的 BCP 系统，在网络请求中发现，这样一个接口：
+
+url：jtsi/UserLogin/login 
+
+method：POST
+
+作用：用户登录，返回用户登录信息
+
+参数字段：
+
+
+
+字段
+取值（爬取发现）
+类型
+是否必填
+说明
+
+
+
+deviceType
+D
+string
+是
+判断设备类型，貌似没啥用，不断啥就用D这个值就行
+
+
+domain
+BCPWx
+string
+否
+用来判断是否是在 移动端 ，移动端就是 BCPWx，PC端啥也不写
+
+
+timestamp
+1595656277
+number
+是
+时间戳，应该是为了标识当前调用的事件
+
+
+login_type
+login_user
+string
+是
+用户登录类型，用 login_user 这个就行
+
+
+passwd
+BcpWx%3c6****efbe84%3E
+string
+是
+用户的密码（为了安全，我进行了脱密处理），下文会重点分析，这个字符串，关键突破点
+
+
+t
+1595656277720
+number
+是
+又来一个时间戳，不过这个是 毫秒 的，上面的 timestamp 是秒的。
+
+
+
+返回参数：
+{
+  &quot;Result&quot;: true,
+  &quot;ReturnCode&quot;: &quot;000&quot;,
+  &quot;ReturnMessage&quot;: {
+      &quot;orgName&quot;: &quot;******团队&quot;, 
+      &quot;roleIds&quot;: [&quot;-1&quot;],
+      &quot;statusMsg&quot;: &quot;登录成功&quot;,
+      &quot;domain&quot;: &quot;&quot;,
+      &quot;sessionId&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;,
+      &quot;userName&quot;: &quot;***&quot;,
+      &quot;userId&quot;: &quot;********&quot;,
+      &quot;orgId&quot;: &quot;**********&quot;,
+      &quot;depts&quot;: {
+          &quot;num&quot;: &quot;1&quot;,
+          &quot;**********&quot;: &quot;****团队&quot;
+      },
+      &quot;status&quot;: 1,
+      &quot;token&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;
+  }
+}
+
+
+从上面的请求参数开始分析：
+
+第一步：
+BCP 系统的致命漏洞，也是出现在此。用户在经过 PF 平台的 Oauth2 授权后，竟然没有直接返回 token 值，而是在Oauth2 授权拿到 用户id 后，神奇的是又去请求 BCP 系统自带的登录接口（UserLogin/login），那么他就需要账号密码。
+
+第二步：
+通过第一步发现，系统在登陆前，肯定会有一次获取用户密码的请求，果不其然，在进一步抓包处理后（由于只是在手机端简单的注入了一些检测脚本，所以并没有拿到返回密码的接口，或者说在我注入脚本之前，系统就已经完成了获取密码操作，所以我一开始没有拿到这个接口），发现了一个返回用户密码的接口，这个稍后再分析。
+
+第三步：
+第二步说到：会有一个返回密码的接口，那么我们要想获取到最高权限（系统管理员）的密码，就必然得知道管理员（当然我是知道，该系统的管理员的用户id，不知道也没关系，下文会讲解怎么拿）的账号密码。
+
+
+获取管理员账号1上文说到，我已经知道管理员的帐号了，因为就是系统负责人，我肯定是知道的，假如说我不知道，怎么办？
+大家知道，在公司内部一般的员工编号都是数字或者有规律的，最主要的就是可以根据自己的账号去推演，毕竟破解最多的就是穷举法。
+为了更好的解释怎么获取管理员账号，我在下文会提到根据什么原理拿到管理员账号，此处假设我们知道管理员的账号了。
+寻求加密突破点我们再一次回到，在移动端发现的登录接口，分析一下，此处的请求参数：passwd，为了解释简单，我们假设一个账号：12345678，他的密码（当然我是根据他的规律来生成的）是：BcpWx%3c25d55ad283aa400af464c76d713c07ad%3e，根据经验（也是常识），在接口传参数的时候我们不会有%号的出，也是我们是通过抓包拿到的字符串，肯定也会经过URL编码，那么我们反编码一下：BcpWx&lt;25d55ad283aa400af464c76d713c07ad&gt;，这个规律就有了，密码应该是加密过的，加密过后应该是：25d55ad283aa400af464c76d713c07ad，然后开发者又在密码前后分别加了 “BcpWx&lt;” 和 “&gt;”，当然如果你经验够足的话，一眼就能判断 “&gt;” 的url 编码 为 %3c， “&lt; “的编码为 %3e。那么就只剩下 25d55ad283aa400af464c76d713c07ad ，咋一看，这咋解密，无从下手，上文说到，破解、攻击等手段常用的就是穷举法（没想到第一个 BCP 就中了），最常用的就是 md5 加密，不管三七二十一，先来一波md5加密：
+
+
+
+字符串
+12345678
+
+
+
+16位 小写
+83aa400af464c76d
+
+
+16位 大写
+83AA400AF464C76D
+
+
+32位 小写
+25d55ad283aa400af464c76d713c07ad
+
+
+32位 大写
+25D55AD283AA400AF464C76D713C07AD
+
+
+注：因为我知道我得账号是多少，所以我是拿自己的 userid，通过md5 去比对的。
+到此返现了惊喜，md5 加密的 32位 小写 结果不就是，我们在接口中发现的字符串吗？其实到这里就已经攻破了，当前这是后来分析，才知道的。假设不知道的时候，我们就需要进一步发现。因为这个只是在移动端登录的接口，即使知道了，操作起来不太方便。接下来我们登录 PC　端看看会有怎样的发现。
+获取管理员账号 2接上上小结的内容，假设你不知道管理员账号怎么办？PC 端登录，是用的公司统一认证平台，当登录到，总共请求了 3（有一个接口请求了两次，重复的，阿西吧） 接口：/jtsi/UserLogin/getHeadImg 、/jtsi/JTApplicationService/getApplications和/jtsi/JTApplicationService/getApplicationMenu
+第一个顾名思义，请求头像的不用管，重点部分是后边两个接口，超管也顾名思义，啥都管，那么他的应用和菜单树肯定是最多的，只要根据公司的员工编号，写个批量小脚本，哪个员工的菜单树最多，他肯定就是超管了就没跑了。也有的是 admin 这种。
+接口小技巧根据pc端的接口请求可以看出，BCP 系统鉴权使用的 token （移动端）和 sessionId （PC端），这也就不难理解，为啥在 jtsi/UserLogin/login 的返回结果中，为啥既有 token 还有 sessionId 了，但是他忽略了一点，也是 BCP 系统最致命的。从返回结果我们可以得出两个结论：
+
+后台生成 token 和 sessionId 的机制一样，只是换了个名称而已
+我们可以利用移动端生成的密码，去获取 token，而此处的 token也即 PC端的 sessionId 
+
+为什么要用移动端的接口去生成 token（sessionId ） 呢，上文说到，PC端登录和移动端登录时，是通过 domain 参数来判断的，加入我们不填 domain 参数，你会发现，用 md5 生成的密码对 PC 端的登录接口没用的，这也引发了我继续探寻下去的兴趣。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+          
+          href="http://service.weibo.com/share/share.php?url=https://blog.sharef.top/2020/07/25/b6bc2650-ce79-11ea-82bc-d1527d13cbe6/&title=Record the practical operation of obtaining website authentication - Sharef&summary= 
+
+
+记一次获取网站鉴权的实践操作
+在移动端平台（就先简称PF平台）上新应用，一般会经过安全校验。所以每一个应用都会采取一些攻击策略手段来保障应用的安全稳定。一般是 xss 攻击，不过针对今天举例的系统（就先简称为BCP）他做的还是很棒的。还有就是鉴权登录，这也是主要能攻破BCP系统的关键点。
+另外本文只分析破解过程，对于原理和一些名词不做过多解释。
+
+工具
+fillder（抓包工具，这个其实有没有都行，主要是爬取接口的时候，可以比较直观的。）
+
+谷歌浏览器
+
+PostMan（用户发送接口请求）
+
+
+过程分析xss 诱导攻击BCP系统这方面考虑的比较全面，暂且不分析了。
+最高鉴权获取这也是本篇文章要重点分析的部分。
+起因打开PF平台上的 BCP 系统，在网络请求中发现，这样一个接口：
+
+url：jtsi/UserLogin/login 
+
+method：POST
+
+作用：用户登录，返回用户登录信息
+
+参数字段：
+
+
+
+字段
+取值（爬取发现）
+类型
+是否必填
+说明
+
+
+
+deviceType
+D
+string
+是
+判断设备类型，貌似没啥用，不断啥就用D这个值就行
+
+
+domain
+BCPWx
+string
+否
+用来判断是否是在 移动端 ，移动端就是 BCPWx，PC端啥也不写
+
+
+timestamp
+1595656277
+number
+是
+时间戳，应该是为了标识当前调用的事件
+
+
+login_type
+login_user
+string
+是
+用户登录类型，用 login_user 这个就行
+
+
+passwd
+BcpWx%3c6****efbe84%3E
+string
+是
+用户的密码（为了安全，我进行了脱密处理），下文会重点分析，这个字符串，关键突破点
+
+
+t
+1595656277720
+number
+是
+又来一个时间戳，不过这个是 毫秒 的，上面的 timestamp 是秒的。
+
+
+
+返回参数：
+{
+  &quot;Result&quot;: true,
+  &quot;ReturnCode&quot;: &quot;000&quot;,
+  &quot;ReturnMessage&quot;: {
+      &quot;orgName&quot;: &quot;******团队&quot;, 
+      &quot;roleIds&quot;: [&quot;-1&quot;],
+      &quot;statusMsg&quot;: &quot;登录成功&quot;,
+      &quot;domain&quot;: &quot;&quot;,
+      &quot;sessionId&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;,
+      &quot;userName&quot;: &quot;***&quot;,
+      &quot;userId&quot;: &quot;********&quot;,
+      &quot;orgId&quot;: &quot;**********&quot;,
+      &quot;depts&quot;: {
+          &quot;num&quot;: &quot;1&quot;,
+          &quot;**********&quot;: &quot;****团队&quot;
+      },
+      &quot;status&quot;: 1,
+      &quot;token&quot;: &quot;5d1116fb-****-****-94ac-96fa19c75d30&quot;
+  }
+}
+
+
+从上面的请求参数开始分析：
+
+第一步：
+BCP 系统的致命漏洞，也是出现在此。用户在经过 PF 平台的 Oauth2 授权后，竟然没有直接返回 token 值，而是在Oauth2 授权拿到 用户id 后，神奇的是又去请求 BCP 系统自带的登录接口（UserLogin/login），那么他就需要账号密码。
+
+第二步：
+通过第一步发现，系统在登陆前，肯定会有一次获取用户密码的请求，果不其然，在进一步抓包处理后（由于只是在手机端简单的注入了一些检测脚本，所以并没有拿到返回密码的接口，或者说在我注入脚本之前，系统就已经完成了获取密码操作，所以我一开始没有拿到这个接口），发现了一个返回用户密码的接口，这个稍后再分析。
+
+第三步：
+第二步说到：会有一个返回密码的接口，那么我们要想获取到最高权限（系统管理员）的密码，就必然得知道管理员（当然我是知道，该系统的管理员的用户id，不知道也没关系，下文会讲解怎么拿）的账号密码。
+
+
+获取管理员账号1上文说到，我已经知道管理员的帐号了，因为就是系统负责人，我肯定是知道的，假如说我不知道，怎么办？
+大家知道，在公司内部一般的员工编号都是数字或者有规律的，最主要的就是可以根据自己的账号去推演，毕竟破解最多的就是穷举法。
+为了更好的解释怎么获取管理员账号，我在下文会提到根据什么原理拿到管理员账号，此处假设我们知道管理员的账号了。
+寻求加密突破点我们再一次回到，在移动端发现的登录接口，分析一下，此处的请求参数：passwd，为了解释简单，我们假设一个账号：12345678，他的密码（当然我是根据他的规律来生成的）是：BcpWx%3c25d55ad283aa400af464c76d713c07ad%3e，根据经验（也是常识），在接口传参数的时候我们不会有%号的出，也是我们是通过抓包拿到的字符串，肯定也会经过URL编码，那么我们反编码一下：BcpWx&lt;25d55ad283aa400af464c76d713c07ad&gt;，这个规律就有了，密码应该是加密过的，加密过后应该是：25d55ad283aa400af464c76d713c07ad，然后开发者又在密码前后分别加了 “BcpWx&lt;” 和 “&gt;”，当然如果你经验够足的话，一眼就能判断 “&gt;” 的url 编码 为 %3c， “&lt; “的编码为 %3e。那么就只剩下 25d55ad283aa400af464c76d713c07ad ，咋一看，这咋解密，无从下手，上文说到，破解、攻击等手段常用的就是穷举法（没想到第一个 BCP 就中了），最常用的就是 md5 加密，不管三七二十一，先来一波md5加密：
+
+
+
+字符串
+12345678
+
+
+
+16位 小写
+83aa400af464c76d
+
+
+16位 大写
+83AA400AF464C76D
+
+
+32位 小写
+25d55ad283aa400af464c76d713c07ad
+
+
+32位 大写
+25D55AD283AA400AF464C76D713C07AD
+
+
+注：因为我知道我得账号是多少，所以我是拿自己的 userid，通过md5 去比对的。
+到此返现了惊喜，md5 加密的 32位 小写 结果不就是，我们在接口中发现的字符串吗？其实到这里就已经攻破了，当前这是后来分析，才知道的。假设不知道的时候，我们就需要进一步发现。因为这个只是在移动端登录的接口，即使知道了，操作起来不太方便。接下来我们登录 PC　端看看会有怎样的发现。
+获取管理员账号 2接上上小结的内容，假设你不知道管理员账号怎么办？PC 端登录，是用的公司统一认证平台，当登录到，总共请求了 3（有一个接口请求了两次，重复的，阿西吧） 接口：/jtsi/UserLogin/getHeadImg 、/jtsi/JTApplicationService/getApplications和/jtsi/JTApplicationService/getApplicationMenu
+第一个顾名思义，请求头像的不用管，重点部分是后边两个接口，超管也顾名思义，啥都管，那么他的应用和菜单树肯定是最多的，只要根据公司的员工编号，写个批量小脚本，哪个员工的菜单树最多，他肯定就是超管了就没跑了。也有的是 admin 这种。
+接口小技巧根据pc端的接口请求可以看出，BCP 系统鉴权使用的 token （移动端）和 sessionId （PC端），这也就不难理解，为啥在 jtsi/UserLogin/login 的返回结果中，为啥既有 token 还有 sessionId 了，但是他忽略了一点，也是 BCP 系统最致命的。从返回结果我们可以得出两个结论：
+
+后台生成 token 和 sessionId 的机制一样，只是换了个名称而已
+我们可以利用移动端生成的密码，去获取 token，而此处的 token也即 PC端的 sessionId 
+
+为什么要用移动端的接口去生成 token（sessionId ） 呢，上文说到，PC端登录和移动端登录时，是通过 domain 参数来判断的，加入我们不填 domain 参数，你会发现，用 md5 生成的密码对 PC 端的登录接口没用的，这也引发了我继续探寻下去的兴趣。"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+            
+              <a class='next' href='/2020/06/16/a625aad0-afd6-11ea-9390-270475cb65e3/'>
+                <p class='title'>用 js 模拟 php __callstatic魔术方法<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>php 中 的__callStatic()&lt;?php
+/**
+ * 魔术方法:__call()和__callStatic()
+ * __call($name, $arguments):调用...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+      
+      
+        <section id="comments">
+          <div id="valine_container" class="valine_thread">
+            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+          </div>
+        </section>
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: 'Record the practical operation of obtaining website authentication',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具"><span class="toc-text">工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过程分析"><span class="toc-text">过程分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xss-诱导攻击"><span class="toc-text">xss 诱导攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#最高鉴权获取"><span class="toc-text">最高鉴权获取</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#起因"><span class="toc-text">起因</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取管理员账号1"><span class="toc-text">获取管理员账号1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#寻求加密突破点"><span class="toc-text">寻求加密突破点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取管理员账号-2"><span class="toc-text">获取管理员账号 2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口小技巧"><span class="toc-text">接口小技巧</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#探寻PC端登录接口"><span class="toc-text">探寻PC端登录接口</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重点来了"><span class="toc-text">重点来了</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#题外话"><span class="toc-text">题外话</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.1'
+      loop='all'
+      order='list'
+      fixed='true'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='2438292020'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/atom.xml"
+                class="social fas fa-rss flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="mailto:shijfprivate@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/Shijf"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=364936028"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        本站使用
+        <a href="https://volantis.js.org/" target="_blank" class="codename">Volantis</a>
+        作为主题，总访问量为
+          <span id="busuanzi_value_site_pv"><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+          次
+        
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://blog.sharef.top">Copyright © 2017-2020 Shijf</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('') {
+          $('').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
+
+  
+  <script>
+  var GUEST_INFO = ['nick','mail','link'];
+  var meta = 'nick,mail,link'.split(',').filter(function(item){
+    return GUEST_INFO.indexOf(item) > -1
+  });
+  var REQUIRED_FIELDS = ['nick','mail','link'];
+  var requiredFields = 'nick,mail'.split(',').filter(function(item){
+    return REQUIRED_FIELDS.indexOf(item) > -1
+  });
+  var valine = new Valine();
+  function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  valine.init({
+    el: '#valine_container',
+    meta: meta,
+    
+    appId: "hnqUwWuMC7HSYav37IQClxVp-gzGzoHsz",
+    appKey: "C21Y1LPJiLtmtXhliUfAtbtE",
+    placeholder: "快来评论吧~",
+    pageSize:'10',
+    avatar:'mp',
+    lang:'zh-cn',
+    visitor: 'true',
+    highlight: 'true',
+    mathJax: 'false',
+    enableQQ: 'true',
+    requiredFields: requiredFields,
+    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
+    emojiMaps: emojiMaps
+  })
+  </script>
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+<script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  function pjax_fancybox() {
+    $(".article-entry").find("img").not('.inline').not('a img').each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 标准 markdown 描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".article-entry").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  $(function () {
+    pjax_fancybox();
+  });
+</script>
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>
